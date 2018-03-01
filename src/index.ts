@@ -1,17 +1,14 @@
-﻿export * from "./feature/feature.reducers";
-export * from "./user.config";
-export * from "./user.module";
-export * from "./user.routing-module";
-export * from "./models";
+﻿export * from "./form-routing.module";
+export * from "./form.config";
+export * from "./form.module";
 //services
 export * from "./services";
-//actions
-export { SearchActionTypes, Search, ClearSearchedUser } from "./search-account";
-//components
-export { ChangePasswordContainerComponent } from "./change-password";
-export { DashboardContainerComponent, DashboardLinksComponent } from "./dashboard";
-export { FeatureContainerComponent } from "./feature";
-export { ProfileEditContainerComponent } from "./profile-edit";
-export { ProfileContainerComponent } from "./profile-view";
-export { ResetPasswordRequestComponent } from "./reset-password";
-export { SearchComponent } from "./search-account";
+
+//components and actions
+export * from "./add";
+export * from "./edit";
+export * from "./list";
+export * from "./main-container";
+export * from "./view";
+//models
+export * from "./models";

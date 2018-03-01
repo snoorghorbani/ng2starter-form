@@ -1,1 +1,1 @@
-[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./password.service"},{"from":"./user.service"},{"from":"./user-configuration.service"}]}]
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./form-configuration.service"},{"from":"./form.service"}]}]

@@ -1,6 +1,6 @@
 {
 	"name": "@soushians/form",
-	"version": "2.0.0",
+	"version": "2.0.17",
 	"description": "",
 	"keywords": [ "Angular", "Starter", "MEAN", "MongoDB", "form generator" ],
 	"main": "lib/index.js",
@@ -50,5 +50,6 @@
 			"email": "pegah.khf@gmail.com"
 		}
 	],
+	"config": {},
 	"license": "MIT"
 }
