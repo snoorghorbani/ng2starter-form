@@ -8,7 +8,7 @@ export declare class AddFormComponent {
     submited: EventEmitter<{}>;
     changes: EventEmitter<{}>;
     emit(): void;
-    changed($event: any): void;
+    changed(): void;
     changeOrder($event: any): void;
     addFormGroup(root: FormControlSchema): FormControlSchema;
     addFormArray(root: FormControlSchema): FormControlSchema;

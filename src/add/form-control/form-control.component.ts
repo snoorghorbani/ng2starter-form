@@ -9,6 +9,7 @@ import { FormControlSchema } from "../../models";
 export class FormControlComponent {
 	@Input() schema: FormControlSchema;
 	@Output() changes = new EventEmitter();
+	@Output() delete = new EventEmitter();
 
 	width = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 	options = new FormArray([
@@ -21,7 +22,7 @@ export class FormControlComponent {
 
 	changed() {
 		debugger;
-		if ([ this.schema.name, this.schema.placeholder, this.schema.inputType ].some(item => !item)) return true;
+		if ([ this.schema.name, this.schema.title, this.schema.inputType ].some(item => !item)) return true;
 		this.changes.emit();
 	}
 

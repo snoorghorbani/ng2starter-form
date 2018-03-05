@@ -36,6 +36,7 @@ import { FormControlsModule } from "../form-controls";
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
+import { EventEmitter } from "events";
 
 const contorlTemplate = (schema: FormControlSchema) => {
 	switch (schema.inputType) {
@@ -71,6 +72,27 @@ const contorlTemplate = (schema: FormControlSchema) => {
     	`;
 	}
 };
+const FormOpenTemplate = ({ name }) => {
+	return `
+	<mat-card fxFlex='1 1 300px'>
+		<mat-card-header>
+			<mat-card-title>${name}</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+  	`;
+};
+const FormCloseTemplate = (formSchema: FormSchemaModel) => {
+	return `
+		</mat-card-content>
+		<mat-card-actions>
+			<button fxFlex type="button" *ngIf="${formSchema.events.accept.show}" 
+				(click)="accept.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.accept.text}</button>
+			<button fxFlex type="button" *ngIf="${formSchema.events.cancel.show}" 
+				(click)="cancel.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.cancel.text}</button>
+		</mat-card-actions>
+	</mat-card>
+	`;
+};
 const GroupOpenTemplate = ({ path }) => {
 	return `
     	<div [formGroup]="${path}" fxLayout="row" fxLayoutWrap>
@@ -94,11 +116,7 @@ const ArrayCloseTemplate = () => {
 
 @Component({
 	selector: "ngs-form-view",
-	templateUrl: "./form-view.component.html",
-	styles: [
-		`
-		`
-	]
+	templateUrl: "./form-view.component.html"
 })
 export class FormViewComponent {
 	@Input() local;
@@ -130,18 +148,13 @@ export class FormViewComponent {
 			if (!schema) return;
 			this.formGroup = this.createFrom(schema.form);
 			if (!schema.form.name) return;
-			this.template = this.createTemplate(this.formGroup);
+			this.template = this.createTemplate(this.formGroup, true, schema);
 			this.formGroupCreated = true;
 
 			setTimeout(() => {
 				if (this.formCompnent) this.formCompnent.destroy();
 
-				let _module = this.createModuleWithFormComponent(
-					schema,
-					this.template,
-					schema.form.name,
-					this.formGroup
-				);
+				let _module = this.createModuleWithFormComponent(schema, this.template, this.formGroup);
 
 				this.compiler.compileModuleAndAllComponentsAsync(_module).then(factory => {
 					this.formCompnent = this.target.createComponent(
@@ -156,7 +169,7 @@ export class FormViewComponent {
 	generate(schema: FormSchemaModel) {
 		this.schema$.next(schema);
 	}
-	createTemplate(control: AbstractControl) {
+	createTemplate(control: AbstractControl, root = false, formSchema?: FormSchemaModel) {
 		if (control instanceof FormArray) {
 			var res = ArrayOpenTemplate((control as any).schema);
 			control.controls.map(item => {
@@ -165,30 +178,35 @@ export class FormViewComponent {
 			res += ArrayCloseTemplate();
 			return res;
 		} else if (control instanceof FormGroup) {
-			var res = GroupOpenTemplate((control as any).schema);
+			var res = "";
+			if (root) {
+				res += FormOpenTemplate(formSchema);
+			}
+			res += GroupOpenTemplate((control as any).schema);
 			Object.keys(control.controls).forEach(key => {
 				res += this.createTemplate(control.controls[key]);
 			});
 			res += GroupCloseTemplate();
+
+			if (root) {
+				res += FormCloseTemplate(formSchema);
+			}
 			return res;
 		} else {
 			return contorlTemplate((control as any).schema);
 		}
 	}
-	createModuleWithFormComponent(
-		schema: FormSchemaModel,
-		template: string,
-		formGroupName: string,
-		formGroup: AbstractControl
-	): any {
+	createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroup: AbstractControl): any {
 		@Component({
 			template: template,
 			selector: "dynamic"
 		})
 		class CustomComponent {
-			// formGroup = formGroup;
+			formGroup;
+			accept = new EventEmitter();
+			cancel = new EventEmitter();
 			constructor() {
-				this[formGroupName] = formGroup;
+				this.formGroup = formGroup;
 				this["schema"] = schema;
 			}
 		}

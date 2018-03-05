@@ -5,11 +5,13 @@ export declare namespace AddFormApiModel {
     class Request implements HttpRequestBaseModel<Request> {
         _id: string;
         name: string;
-        form: object[];
+        form: any[];
+        events: any[];
         constructor(initValue?: Request);
         getRequestBody(): {
             name: string;
-            form: object[];
+            form: any[];
+            events: any[];
         };
         static readonly formGroup: FormGroup;
     }

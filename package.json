@@ -1,6 +1,6 @@
 {
 	"name": "@soushians/form",
-	"version": "2.0.17",
+	"version": "2.0.217",
 	"description": "",
 	"keywords": [ "Angular", "Starter", "MEAN", "MongoDB", "form generator" ],
 	"main": "lib/index.js",

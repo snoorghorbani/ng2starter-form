@@ -23,7 +23,7 @@ export declare class FormViewComponent {
     private target;
     constructor(service: FormService, compiler: Compiler, resolver: ComponentFactoryResolver, store: Store<MainContainerState>);
     generate(schema: FormSchemaModel): void;
-    createTemplate(control: AbstractControl): string;
-    createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroupName: string, formGroup: AbstractControl): any;
+    createTemplate(control: AbstractControl, root?: boolean, formSchema?: FormSchemaModel): string;
+    createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroup: AbstractControl): any;
     createFrom(data: FormControlSchema, parentPath?: string): AbstractControl;
 }

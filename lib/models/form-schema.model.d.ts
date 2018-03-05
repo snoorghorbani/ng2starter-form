@@ -7,6 +7,16 @@ export declare class FormSchemaModel {
     name: string;
     description: string;
     form: FormControlSchema;
+    events: {
+        accept: {
+            show: false;
+            text: string;
+        };
+        cancel: {
+            show: false;
+            text: string;
+        };
+    };
     constructor();
     init(): void;
 }

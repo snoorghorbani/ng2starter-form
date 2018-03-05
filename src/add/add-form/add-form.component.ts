@@ -15,12 +15,11 @@ export class AddFormComponent {
 	@Output() changes = new EventEmitter();
 
 	emit() {
-		this.formGroup.patchValue(this.schema);
+		this.formGroup.patchValue({ form: this.schema.form });
 		this.submited.emit(this.formGroup.value);
 	}
-	changed($event) {
-		debugger;
-		this.formGroup.patchValue(this.schema);
+	changed() {
+		this.formGroup.patchValue({ form: this.schema.form });
 		this.changes.emit(this.formGroup.value);
 	}
 	changeOrder($event) {

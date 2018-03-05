@@ -2,6 +2,7 @@ import { EventEmitter } from "@angular/core";
 import { FormControlSchema } from "../../models";
 export declare class FormGroupComponent {
     schema: FormControlSchema;
+    noHeader: boolean;
     changes: EventEmitter<{}>;
     delete: EventEmitter<{}>;
     constructor();

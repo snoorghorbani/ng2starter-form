@@ -1,8 +1,12 @@
 <mat-card>
     <mat-card-content>
 
-      <mat-form-field>
+      <mat-form-field *ngIf="!noHeader">
           <input matInput [(ngModel)]="schema.name" placeholder="Name">
+      </mat-form-field>        
+
+      <mat-form-field *ngIf="!noHeader">
+          <input matInput [(ngModel)]="schema.title" placeholder="عنوان">
       </mat-form-field>
         
       <div class="button-row">
@@ -12,11 +16,10 @@
       </div>
 
       <div *ngFor="let field of schema.fields;let i = index">
-        <button mat-button color="primary" (click)="deleteFormGroup(i)">delete</button>
         <div [ngSwitch]="field.type">
           <app-form-group   *ngSwitchCase="'group'"   [schema]="field" (change)="changes()"></app-form-group>
           <app-form-array   *ngSwitchCase="'array'"   [schema]="field" (change)="changes()"></app-form-array>
-          <app-form-control *ngSwitchCase="'control'" [schema]="field" (changes)="changed()"></app-form-control>
+          <app-form-control *ngSwitchCase="'control'" [schema]="field" (changes)="changed()" (delete)="deleteFormGroup(i)"></app-form-control>
         </div>
       </div>
 

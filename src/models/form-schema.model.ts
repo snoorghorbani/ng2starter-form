@@ -9,6 +9,16 @@ export class FormSchemaModel {
 	name: string;
 	description: string;
 	form: FormControlSchema;
+	events: {
+		accept: {
+			show: false;
+			text: string;
+		};
+		cancel: {
+			show: false;
+			text: string;
+		};
+	};
 
 	constructor() {
 		this.form = new FormControlSchema("group");

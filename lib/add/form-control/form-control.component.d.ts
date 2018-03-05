@@ -4,6 +4,7 @@ import { FormControlSchema } from "../../models";
 export declare class FormControlComponent {
     schema: FormControlSchema;
     changes: EventEmitter<{}>;
+    delete: EventEmitter<{}>;
     width: number[];
     options: FormArray;
     constructor();

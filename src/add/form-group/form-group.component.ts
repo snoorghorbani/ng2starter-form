@@ -8,6 +8,7 @@ import { Form } from "@angular/forms";
 })
 export class FormGroupComponent {
 	@Input() schema: FormControlSchema;
+	@Input() noHeader: boolean = false;
 	@Output() changes = new EventEmitter();
 	@Output() delete = new EventEmitter();
 	constructor() {}

@@ -3,7 +3,10 @@
     <mat-expansion-panel [expanded]="1"  (opened)="1" >
       <mat-expansion-panel-header>
         <mat-panel-title>
-            {{schema.name}}
+          <button mat-icon-button (click)="delete.emit()">
+              <mat-icon aria-label=" icon-button">delete_forever</mat-icon>
+            </button>
+          {{schema.name}}
         </mat-panel-title>
       </mat-expansion-panel-header>
         <mat-form-field>
@@ -11,7 +14,7 @@
         </mat-form-field>
         
         <mat-form-field>
-          <input matInput [(ngModel)]="schema.placeholder" (change)="changed()" placeholder="Placeholder"/>
+          <input matInput [(ngModel)]="schema.title" (change)="changed()" placeholder="Placeholder"/>
         </mat-form-field>
         
         <mat-form-field>

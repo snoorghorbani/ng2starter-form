@@ -5,12 +5,14 @@ export declare namespace EditFormApiModel {
     class Request implements HttpRequestBaseModel<Request> {
         _id: string;
         name: string;
-        form: object[];
+        form: any[];
+        events: any[];
         constructor(initValue?: Request);
         getRequestBody(): {
             _id: string;
             name: string;
-            form: object[];
+            form: any[];
+            events: any[];
         };
         static readonly formGroup: FormGroup;
     }
