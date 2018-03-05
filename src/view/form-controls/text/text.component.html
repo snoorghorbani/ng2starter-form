@@ -1,3 +1,17 @@
 <mat-form-field fxFlexFill [formGroup]="form">
-    <input matInput [type]="schema.inputType" [placeholder]="schema.title" [formControlName]="schema.name">
+  
+  <input matInput [id]="schema.name" [type]="schema.inputType" [placeholder]="schema.title" [formControlName]="schema.name">
+  
+  <mat-error *ngIf="form.get(schema.name).errors?.required">
+    {{schema.validator.required.message}}
+  </mat-error>
+  <mat-error *ngIf="form.get(schema.name).errors?.minlength">
+    {{schema.validator.minlength.message}}
+  </mat-error>
+  <mat-error *ngIf="form.get(schema.name).email?.minlength">
+    {{schema.validator.email.message}}
+  </mat-error>
+  <!-- <div *ngIf="form.get(schema.name).invalid && (form.get(schema.name).dirty || form.get(schema.name).touched)" class="alert alert-danger">
+  </div> -->
+
 </mat-form-field>

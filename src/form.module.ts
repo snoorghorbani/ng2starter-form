@@ -16,7 +16,8 @@ import {
 	MatFormFieldModule,
 	MatTabsModule,
 	MatRadioModule,
-	MatSlideToggleModule
+	MatSlideToggleModule,
+	MatDividerModule
 } from "@angular/material";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -54,6 +55,7 @@ import { FormControlComponent } from "./add/form-control";
 		MatInputModule,
 		MatFormFieldModule,
 		MatTabsModule,
+		MatDividerModule,
 		FlexLayoutModule,
 		MatRadioModule,
 		MatSlideToggleModule,

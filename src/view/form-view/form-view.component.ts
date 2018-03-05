@@ -7,10 +7,20 @@ import {
 	Compiler,
 	ReflectiveInjector,
 	NgModule,
-	Input
+	Input,
+	Output,
+	EventEmitter
 } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { FormControl, FormGroup, FormArray, AbstractControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {
+	FormControl,
+	FormGroup,
+	FormArray,
+	AbstractControl,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators
+} from "@angular/forms";
 import {
 	MatSidenavModule,
 	MatToolbarModule,
@@ -36,7 +46,6 @@ import { FormControlsModule } from "../form-controls";
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
-import { EventEmitter } from "events";
 
 const contorlTemplate = (schema: FormControlSchema) => {
 	switch (schema.inputType) {
@@ -86,7 +95,7 @@ const FormCloseTemplate = (formSchema: FormSchemaModel) => {
 		</mat-card-content>
 		<mat-card-actions>
 			<button fxFlex type="button" *ngIf="${formSchema.events.accept.show}" 
-				(click)="accept.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.accept.text}</button>
+				(click)="accepted()" mat-raised-button color="primary">${formSchema.events.accept.text}</button>
 			<button fxFlex type="button" *ngIf="${formSchema.events.cancel.show}" 
 				(click)="cancel.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.cancel.text}</button>
 		</mat-card-actions>
@@ -119,6 +128,8 @@ const ArrayCloseTemplate = () => {
 	templateUrl: "./form-view.component.html"
 })
 export class FormViewComponent {
+	@Output() accept = new EventEmitter<FormGroup>();
+	@Output() cancel = new EventEmitter<FormGroup>();
 	@Input() local;
 	_id: string;
 	@Input()
@@ -154,7 +165,13 @@ export class FormViewComponent {
 			setTimeout(() => {
 				if (this.formCompnent) this.formCompnent.destroy();
 
-				let _module = this.createModuleWithFormComponent(schema, this.template, this.formGroup);
+				let _module = this.createModuleWithFormComponent(
+					schema,
+					this.template,
+					this.formGroup as FormGroup,
+					this.accept,
+					this.cancel
+				);
 
 				this.compiler.compileModuleAndAllComponentsAsync(_module).then(factory => {
 					this.formCompnent = this.target.createComponent(
@@ -196,18 +213,30 @@ export class FormViewComponent {
 			return contorlTemplate((control as any).schema);
 		}
 	}
-	createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroup: AbstractControl): any {
+	createModuleWithFormComponent(
+		schema: FormSchemaModel,
+		template: string,
+		formGroup: FormGroup,
+		acceptFn: EventEmitter<FormGroup>,
+		cancelFn: EventEmitter<FormGroup>
+	): any {
 		@Component({
 			template: template,
 			selector: "dynamic"
 		})
 		class CustomComponent {
-			formGroup;
+			formGroup: FormGroup;
 			accept = new EventEmitter();
 			cancel = new EventEmitter();
 			constructor() {
+				this.accept.subscribe(() => acceptFn.emit(this.formGroup));
+				this.cancel.subscribe(() => cancelFn.emit(this.formGroup));
 				this.formGroup = formGroup;
 				this["schema"] = schema;
+			}
+			accepted() {
+				if (!this.formGroup.valid) return;
+				this.accept.emit(this.formGroup);
 			}
 		}
 
@@ -246,7 +275,18 @@ export class FormViewComponent {
 				var formGroupPath = parentPath;
 				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
 			}
-			var ctr = new FormControl(data.value);
+			debugger;
+			var validators = [];
+			if (data.validator.required.active) {
+				validators.push(Validators.required);
+			}
+			if (data.validator.minlength.active) {
+				validators.push(Validators.minLength(data.validator.minlength.value));
+			}
+			if (data.validator.email.active) {
+				validators.push(Validators.email);
+			}
+			var ctr = new FormControl(data.value, validators);
 			(ctr as any).schema = data;
 			(ctr as any).schema.path = parentPath;
 			(ctr as any).schema.formGroupPath = formGroupPath;

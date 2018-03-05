@@ -1,4 +1,4 @@
-import { Validators } from "./form-schema.model";
+import { Validator } from "./form-field-validator.model";
 export declare class FormControlSchema {
     id: number;
     type: "group" | "array" | "control";
@@ -16,6 +16,6 @@ export declare class FormControlSchema {
     };
     optionsEndpoint: string;
     fields?: FormControlSchema[];
-    validators: Validators;
+    validator: Validator;
     constructor(type: "group" | "array" | "control");
 }

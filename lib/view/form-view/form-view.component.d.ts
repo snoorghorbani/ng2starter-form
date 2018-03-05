@@ -1,5 +1,5 @@
-import { ComponentFactoryResolver, Compiler } from "@angular/core";
-import { AbstractControl } from "@angular/forms";
+import { ComponentFactoryResolver, Compiler, EventEmitter } from "@angular/core";
+import { FormGroup, AbstractControl } from "@angular/forms";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ComponentRef } from "@angular/core/src/linker/component_factory";
 import { Store } from "@ngrx/store";
@@ -12,6 +12,8 @@ export declare class FormViewComponent {
     private compiler;
     private resolver;
     private store;
+    accept: EventEmitter<FormGroup>;
+    cancel: EventEmitter<FormGroup>;
     local: any;
     _id: string;
     id: string;
@@ -24,6 +26,6 @@ export declare class FormViewComponent {
     constructor(service: FormService, compiler: Compiler, resolver: ComponentFactoryResolver, store: Store<MainContainerState>);
     generate(schema: FormSchemaModel): void;
     createTemplate(control: AbstractControl, root?: boolean, formSchema?: FormSchemaModel): string;
-    createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroup: AbstractControl): any;
+    createModuleWithFormComponent(schema: FormSchemaModel, template: string, formGroup: FormGroup, acceptFn: EventEmitter<FormGroup>, cancelFn: EventEmitter<FormGroup>): any;
     createFrom(data: FormControlSchema, parentPath?: string): AbstractControl;
 }
