@@ -81,25 +81,28 @@ const contorlTemplate = (schema: FormControlSchema) => {
     	`;
 	}
 };
-const FormOpenTemplate = ({ name }) => {
+const FormOpenTemplate = ({ name, form }) => {
+	debugger;
 	return `
-	<mat-card fxFlex='1 1 300px'>
-		<mat-card-header>
-			<mat-card-title>${name}</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
+	<form [formGroup]="formGroup" (ngSubmit)="accepted()">
+		<mat-card fxFlex='1 1 300px'>
+			<mat-card-header>
+				<mat-card-title>${name}</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
   	`;
 };
 const FormCloseTemplate = (formSchema: FormSchemaModel) => {
 	return `
-		</mat-card-content>
-		<mat-card-actions>
-			<button fxFlex type="button" *ngIf="${formSchema.events.accept.show}" 
-				(click)="accepted()" mat-raised-button color="primary">${formSchema.events.accept.text}</button>
-			<button fxFlex type="button" *ngIf="${formSchema.events.cancel.show}" 
-				(click)="cancel.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.cancel.text}</button>
-		</mat-card-actions>
-	</mat-card>
+			</mat-card-content>
+			<mat-card-actions>
+				<button fxFlex type="submit" *ngIf="${formSchema.events.accept.show}" 
+					mat-raised-button color="primary">${formSchema.events.accept.text}</button>
+				<button fxFlex type="button" *ngIf="${formSchema.events.cancel.show}" 
+					(click)="cancel.emit(this.formGroup)" mat-raised-button color="primary">${formSchema.events.cancel.text}</button>
+			</mat-card-actions>
+		</mat-card>
+	</form>
 	`;
 };
 const GroupOpenTemplate = ({ path }) => {

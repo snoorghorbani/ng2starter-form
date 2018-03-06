@@ -38,6 +38,7 @@ import { FormViewComponent } from "./view";
 import { FormGroupComponent } from "./add/form-group";
 import { FormArrayComponent } from "./add/form-array";
 import { FormControlComponent } from "./add/form-control";
+import { NgsFormSelectorComponent } from "./form-selector";
 
 @NgModule({
 	imports: [
@@ -73,9 +74,10 @@ import { FormControlComponent } from "./add/form-control";
 		FormGroupComponent,
 		FormArrayComponent,
 		FormControlComponent,
-		FormViewComponent
+		FormViewComponent,
+		NgsFormSelectorComponent
 	],
-	exports: [ FormViewComponent ]
+	exports: [ FormViewComponent, NgsFormSelectorComponent ]
 })
 export class NgsFormModule {
 	static forRoot(config?: FormModuleConfig): ModuleWithProviders {
