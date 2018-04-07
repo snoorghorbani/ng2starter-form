@@ -29,7 +29,6 @@ export class AddFormContainerComponent implements OnInit {
 		this.store.dispatch(new AddFormAction(form));
 	}
 	update_schema(form: FormSchemaModel) {
-		debugger;
 		this.store.dispatch(new UpdateFormSchemaAction(form));
 	}
 }

@@ -18,11 +18,18 @@ export class FormControlComponent {
 			value: new FormControl()
 		})
 	]);
+	tableOptions = new FormGroup({
+		dataEndpoint: new FormControl("http://localhost:3000/api/fake/packgeCompareSimpleList")
+	});
 	constructor() {}
 
 	changed() {
-		debugger;
 		if ([ this.schema.name, this.schema.title, this.schema.inputType ].some(item => !item)) return true;
+		if (this.schema.inputType == "table") {
+			this.schema.options = this.tableOptions.value;
+		} else if (this.schema.inputType == "select") {
+			this.schema.options = this.options.value;
+		}
 		this.changes.emit();
 	}
 
@@ -38,7 +45,6 @@ export class FormControlComponent {
 		this.options.controls.splice(i, 1);
 	}
 	insertOptions() {
-		debugger;
 		this.schema.options = this.options.value;
 	}
 }

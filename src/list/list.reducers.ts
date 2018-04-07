@@ -38,7 +38,6 @@ export function reducer(state = initialState, action: FormsListActions): State {
 			};
 		}
 		case FormsListActionTypes.FORM_SCHEMA_UPDATE: {
-			debugger;
 			const data = state.data.concat();
 			var entityIdx = state.data.findIndex(form => form._id == action.payload._id);
 			if (entityIdx > -1) {

@@ -8,7 +8,7 @@ export class FormControlSchema {
 	parentType?: "array" | "group";
 	formGroupPath?: string;
 	path?: string;
-	inputType: "select" | "text" | "number" | "email" | "color" | "checkbox";
+	inputType: "select" | "text" | "number" | "email" | "color" | "checkbox" | "table";
 	value?: any;
 	order?: number;
 	width?: number;

@@ -17,6 +17,7 @@
       
       <mat-form-field>
         <mat-select [(ngModel)]="schema.inputType" (change)="changed()" placeholder="Input Type">
+          <mat-option value="table">table</mat-option>
           <mat-option value="select">select</mat-option>
           <mat-option value="text">text</mat-option>
           <mat-option value="number">number</mat-option>
@@ -36,6 +37,12 @@
             <mat-option *ngFor="let item of width" [value]="item">{{item}}</mat-option>
           </mat-select>
         </mat-form-field>
+
+      <div *ngIf="schema.inputType=='table'" [formGroup]="tableOptions">
+        <mat-form-field>
+          <input matInput (change)="changed()" formControlName="dataEndpoint" placeholder="dataEndpoint"/>
+        </mat-form-field>
+      </div>
 
       <div *ngIf="schema.inputType=='select'">
         [options]

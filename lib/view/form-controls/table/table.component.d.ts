@@ -1,0 +1,22 @@
+import { OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { FormControlSchema } from "../../../models";
+import { HttpClient } from "@angular/common/http";
+import { MatTableDataSource } from "@angular/material";
+import { SelectionModel } from "@angular/cdk/collections";
+export declare class TableComponent implements OnInit {
+    private http;
+    form: FormGroup;
+    schema: FormControlSchema;
+    ready: boolean;
+    displayedColumns: string[];
+    filedDisplayedColumns: string[];
+    dataSource: MatTableDataSource<any>;
+    selection: SelectionModel<any>;
+    constructor(http: HttpClient);
+    ngOnInit(): void;
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected(): boolean;
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle(): void;
+}

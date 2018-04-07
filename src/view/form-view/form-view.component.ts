@@ -79,13 +79,17 @@ const contorlTemplate = (schema: FormControlSchema) => {
       			<ngs-form-control-select fxFlex="${schema.width *
 					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-select>
     	`;
+		case "table":
+			return `
+      			<ngs-form-control-table fxFlex="${schema.width *
+					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-table>
+    	`;
 	}
 };
 const FormOpenTemplate = ({ name, form }) => {
-	debugger;
 	return `
 	<form [formGroup]="formGroup" (ngSubmit)="accepted()">
-		<mat-card fxFlex='1 1 300px'>
+		<mat-card fxFlex='1 1 auto'>
 			<mat-card-header>
 				<mat-card-title>${name}</mat-card-title>
 			</mat-card-header>
@@ -278,7 +282,6 @@ export class FormViewComponent {
 				var formGroupPath = parentPath;
 				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
 			}
-			debugger;
 			var validators = [];
 			if (data.validator.required.active) {
 				validators.push(Validators.required);

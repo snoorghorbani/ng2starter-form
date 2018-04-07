@@ -11,7 +11,8 @@ import {
 	MatCheckboxModule,
 	MatRadioModule,
 	MatSelectModule,
-	MatSliderModule
+	MatSliderModule,
+	MatTableModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -21,6 +22,7 @@ import { EmailComponent } from "./email";
 import { ColorComponent } from "./color";
 import { TextComponent } from "./text";
 import { NumberComponent } from "./number";
+import { TableComponent } from "./table";
 
 @NgModule({
 	imports: [
@@ -34,6 +36,7 @@ import { NumberComponent } from "./number";
 		MatInputModule,
 		MatCheckboxModule,
 		MatRadioModule,
+		MatTableModule,
 		MatSelectModule,
 		MatSliderModule,
 		FormsModule,
@@ -45,8 +48,17 @@ import { NumberComponent } from "./number";
 		EmailComponent,
 		ColorComponent,
 		TextComponent,
-		NumberComponent
+		NumberComponent,
+		TableComponent
 	],
-	exports: [ SelectComponent, CheckboxComponent, EmailComponent, ColorComponent, TextComponent, NumberComponent ]
+	exports: [
+		SelectComponent,
+		CheckboxComponent,
+		EmailComponent,
+		ColorComponent,
+		TextComponent,
+		NumberComponent,
+		TableComponent
+	]
 })
 export class FormControlsModule {}
