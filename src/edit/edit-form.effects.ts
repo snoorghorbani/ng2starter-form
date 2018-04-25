@@ -1,12 +1,8 @@
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/mergeMap";
-import "rxjs/add/operator/switchMap";
-
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Action } from "@ngrx/store";
-import { Actions, Effect, toPayload } from "@ngrx/effects";
+import { Actions, Effect } from "@ngrx/effects";
 import { of } from "rxjs/observable/of";
 import { Store } from "@ngrx/store";
 
@@ -19,28 +15,34 @@ import {
 	EditFormFailedAction
 } from "./edit-form.actions";
 import { UpdateFormSchemaAction } from "../list";
+import { map, switchMap, catchError } from "rxjs/operators";
 
 @Injectable()
 export class EditFormEffects {
-	constructor(private actions$: Actions<any>, private router: Router, private service: FormService) {}
+	constructor(private actions$: Actions<any>, private router: Router, private service: FormService) { }
 
 	@Effect()
 	EditForm$ = this.actions$
 		.ofType(EditFormActionTypes.EDIT_FORM)
-		.map(toPayload)
-		.map(data => new EditFormStartAction(data));
+		.pipe(
+			map(action => action.payload),
+			map(data => new EditFormStartAction(data))
+		)
 
 	@Effect()
 	EditFormStart$ = this.actions$
 		.ofType(EditFormActionTypes.EDIT_FORM_START)
-		.map(toPayload)
-		.switchMap((data: EditFormApiModel.Request) => this.service.update(data))
-		.map(formSchema => new EditFormSucceedAction(formSchema))
-		.catch(() => Observable.of(new EditFormFailedAction()));
+		.pipe(
+			map(action => action.payload),
+			switchMap((data: EditFormApiModel.Request) => this.service.update(data)),
+			map(formSchema => new EditFormSucceedAction(formSchema)),
+			catchError(() => Observable.of(new EditFormFailedAction())))
 
 	@Effect()
 	UpdateFormsListStart$ = this.actions$
 		.ofType(EditFormActionTypes.EDIT_FORM_SUCCEED)
-		.map(toPayload)
-		.map(formSchema => new UpdateFormSchemaAction(formSchema));
+		.pipe(
+			map(action => action.payload),
+			map(formSchema => new UpdateFormSchemaAction(formSchema))
+		)
 }

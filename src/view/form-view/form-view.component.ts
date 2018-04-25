@@ -52,37 +52,37 @@ const contorlTemplate = (schema: FormControlSchema) => {
 		case "text":
 			return `
 				<ngs-form-control-text fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-text>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-text>
 		`;
 		case "number":
 			return `
 				<ngs-form-control-number fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-number>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-number>
 		`;
 		case "email":
 			return `
 				<ngs-form-control-email fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-email>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-email>
     	`;
 		case "color":
 			return `
 				<ngs-form-control-color fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-color>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-color>
     	`;
 		case "checkbox":
 			return `
       			<ngs-form-control-checkbox fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-checkbox>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-checkbox>
     	`;
 		case "select":
 			return `
       			<ngs-form-control-select fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-select>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-select>
     	`;
 		case "table":
 			return `
       			<ngs-form-control-table fxFlex="${schema.width *
-					10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-table>
+				10}" [form]="${schema.formGroupPath}" [schema]="${schema.path}.schema"></ngs-form-control-table>
     	`;
 	}
 };
@@ -180,6 +180,7 @@ export class FormViewComponent {
 					this.cancel
 				);
 
+				// this.resolver.resolveComponentFactory
 				this.compiler.compileModuleAndAllComponentsAsync(_module).then(factory => {
 					this.formCompnent = this.target.createComponent(
 						factory.componentFactories.find(item => item.selector == "dynamic"),
@@ -266,10 +267,10 @@ export class FormViewComponent {
 				FlexLayoutModule,
 				FormControlsModule
 			],
-			declarations: [ CustomComponent ],
-			exports: [ CustomComponent ]
+			declarations: [CustomComponent],
+			exports: [CustomComponent]
 		})
-		class _module {}
+		class _module { }
 
 		return _module;
 	}
