@@ -75,15 +75,16 @@ import { NgsFormSelectorComponent } from "./form-selector";
 		FormArrayComponent,
 		FormControlComponent,
 		FormViewComponent,
+		DynamicFieldDirective,
 		NgsFormSelectorComponent
 	],
-	exports: [ FormViewComponent, NgsFormSelectorComponent ]
+	exports: [FormViewComponent, NgsFormSelectorComponent]
 })
 export class NgsFormModule {
 	static forRoot(config?: FormModuleConfig): ModuleWithProviders {
 		return {
 			ngModule: RootNgsFormModule,
-			providers: [ { provide: MODULE_CONFIG_TOKEN, useValue: config }, FormService, FormConfigurationService ]
+			providers: [{ provide: MODULE_CONFIG_TOKEN, useValue: config }, FormService, FormConfigurationService]
 		};
 	}
 }
@@ -92,9 +93,9 @@ export class NgsFormModule {
 	imports: [
 		NgsFormModule,
 		StoreModule.forFeature("form", FormReducers),
-		EffectsModule.forFeature([ AddFormEffects, EditFormEffects, FormsListEffects ]),
+		EffectsModule.forFeature([AddFormEffects, EditFormEffects, FormsListEffects]),
 		RoutingModule
 	],
-	exports: [ NgsFormModule ]
+	exports: [NgsFormModule]
 })
-export class RootNgsFormModule {}
+export class RootNgsFormModule { }

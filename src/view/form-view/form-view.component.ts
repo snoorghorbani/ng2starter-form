@@ -9,7 +9,8 @@ import {
 	NgModule,
 	Input,
 	Output,
-	EventEmitter
+	EventEmitter,
+	OnChanges
 } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {
@@ -134,7 +135,7 @@ const ArrayCloseTemplate = () => {
 	selector: "ngs-form-view",
 	templateUrl: "./form-view.component.html"
 })
-export class FormViewComponent {
+export class FormViewComponent implements OnChanges, OnInit {
 	@Output() accept = new EventEmitter<FormGroup>();
 	@Output() cancel = new EventEmitter<FormGroup>();
 	@Input() local;
@@ -154,6 +155,14 @@ export class FormViewComponent {
 	@ViewChild("contentFormGen", { read: ViewContainerRef })
 	private target: ViewContainerRef;
 
+
+	ngOnInit() {
+		// this.formGroup = this.createFrom();
+	}
+
+	ngOnChanges() {
+
+	}
 	constructor(
 		private service: FormService,
 		private compiler: Compiler,
@@ -166,29 +175,29 @@ export class FormViewComponent {
 			if (!schema) return;
 			this.formGroup = this.createFrom(schema.form);
 			if (!schema.form.name) return;
-			this.template = this.createTemplate(this.formGroup, true, schema);
+			// this.template = this.createTemplate(this.formGroup, true, schema);
 			this.formGroupCreated = true;
 
-			setTimeout(() => {
-				if (this.formCompnent) this.formCompnent.destroy();
+			// setTimeout(() => {
+			// 	if (this.formCompnent) this.formCompnent.destroy();
 
-				let _module = this.createModuleWithFormComponent(
-					schema,
-					this.template,
-					this.formGroup as FormGroup,
-					this.accept,
-					this.cancel
-				);
+			// 	let _module = this.createModuleWithFormComponent(
+			// 		schema,
+			// 		this.template,
+			// 		this.formGroup as FormGroup,
+			// 		this.accept,
+			// 		this.cancel
+			// 	);
 
-				// this.resolver.resolveComponentFactory
-				this.compiler.compileModuleAndAllComponentsAsync(_module).then(factory => {
-					this.formCompnent = this.target.createComponent(
-						factory.componentFactories.find(item => item.selector == "dynamic"),
-						0
-					);
-					this.target.insert(this.formCompnent.hostView);
-				});
-			}, 10);
+			// 	// this.resolver.resolveComponentFactory
+			// 	this.compiler.compileModuleAndAllComponentsAsync(_module).then(factory => {
+			// 		this.formCompnent = this.target.createComponent(
+			// 			factory.componentFactories.find(item => item.selector == "dynamic"),
+			// 			0
+			// 		);
+			// 		this.target.insert(this.formCompnent.hostView);
+			// 	});
+			// }, 10);
 		});
 	}
 	generate(schema: FormSchemaModel) {
