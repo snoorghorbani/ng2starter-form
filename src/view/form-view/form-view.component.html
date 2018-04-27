@@ -1,9 +1,13 @@
-<form class="dynamic-form" [formGroup]="form" (submit)="handleSubmit($event)">
-  <ng-container *ngFor="let field of config;" dynamicField [config]="field" [group]="form">
-  </ng-container>
+<form *ngIf="formGroupCreated" class="dynamic-form" [formGroup]="formGroup" (ngSubmit)="accepted()">
+  <mat-card>
+    <mat-card-content>
+      <ng-container *ngFor="let field of (schema$ | async)?.form.fields;" dynamicField [config]="field" [group]="formGroup">
+      </ng-container>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button fxFlex type="submit" *ngIf="(schema$ | async)?.events.accept.show" mat-raised-button color="primary">{{(schema$ | async)?.events.accept.text}}</button>
+      <button fxFlex type="button" *ngIf="(schema$ | async)?.events.cancel.show" (click)="cancel.emit()" mat-raised-button color="primary">{{(schema$ | async)?.events.cancel.text}</button>
+    </mat-card-actions>
+  </mat-card>
 </form>
-
-
-<!-- <div *ngIf="formGroupCreated">
-  <div #contentFormGen></div>
-</div> -->

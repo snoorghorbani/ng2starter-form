@@ -1,11 +1,13 @@
 import { OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { FormControlSchema } from "../../../models";
+import { FormControlSchema, FieldConfig, Field } from "../../../models";
 import { HttpClient } from "@angular/common/http";
 import { MatTableDataSource } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
-export declare class TableComponent implements OnInit {
+export declare class TableComponent implements OnInit, Field {
     private http;
+    config: FieldConfig;
+    group: FormGroup;
     form: FormGroup;
     schema: FormControlSchema;
     ready: boolean;

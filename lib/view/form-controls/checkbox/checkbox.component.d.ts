@@ -1,7 +1,7 @@
-import { FormControlSchema } from "../../../models";
+import { Field, FieldConfig } from "../../../models";
 import { FormGroup } from "@angular/forms";
-export declare class CheckboxComponent {
-    form: FormGroup;
-    schema: FormControlSchema;
+export declare class CheckboxComponent implements Field {
+    config: FieldConfig;
+    group: FormGroup;
     constructor();
 }

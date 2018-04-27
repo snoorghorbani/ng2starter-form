@@ -11,8 +11,11 @@ export class CheckboxComponent implements Field {
 	config: FieldConfig;
 	group: FormGroup;
 
-	@Input() form: FormGroup;
-	@Input() schema: FormControlSchema;
+	// @Input() form: FormGroup;
+	// @Input() schema: FormControlSchema;
 
-	constructor() { }
+	constructor() {
+		// debugger;
+		// console.log(this)
+	}
 }

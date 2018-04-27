@@ -17,7 +17,10 @@ import {
 	MatTabsModule,
 	MatRadioModule,
 	MatSlideToggleModule,
-	MatDividerModule
+	MatDividerModule,
+	MatCheckbox,
+	MatCheckboxModule,
+	MatTableModule
 } from "@angular/material";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -34,11 +37,12 @@ import { FormService, FormConfigurationService } from "./services";
 import { FormListComponent, FormsListEffects, FormListContainerComponent } from "./list";
 import { EditFormComponent, EditFormContainerComponent, EditFormEffects } from "./edit";
 import { AddFormEffects } from "./add/add-form.effects";
-import { FormViewComponent } from "./view";
+import { FormViewComponent, DynamicFieldDirective } from "./view";
 import { FormGroupComponent } from "./add/form-group";
 import { FormArrayComponent } from "./add/form-array";
 import { FormControlComponent } from "./add/form-control";
 import { NgsFormSelectorComponent } from "./form-selector";
+import { SelectComponent, CheckboxComponent, EmailComponent, ColorComponent, TextComponent, NumberComponent, TableComponent } from "./view/form-controls";
 
 @NgModule({
 	imports: [
@@ -52,6 +56,8 @@ import { NgsFormSelectorComponent } from "./form-selector";
 		MatIconModule,
 		MatButtonModule,
 		MatCardModule,
+		MatCheckboxModule,
+		MatTableModule,
 		MatSelectModule,
 		MatInputModule,
 		MatFormFieldModule,
@@ -76,7 +82,23 @@ import { NgsFormSelectorComponent } from "./form-selector";
 		FormControlComponent,
 		FormViewComponent,
 		DynamicFieldDirective,
+		SelectComponent,
+		CheckboxComponent,
+		EmailComponent,
+		ColorComponent,
+		TextComponent,
+		NumberComponent,
+		TableComponent,
 		NgsFormSelectorComponent
+	],
+	entryComponents: [
+		SelectComponent,
+		CheckboxComponent,
+		EmailComponent,
+		ColorComponent,
+		TextComponent,
+		NumberComponent,
+		TableComponent
 	],
 	exports: [FormViewComponent, NgsFormSelectorComponent]
 })

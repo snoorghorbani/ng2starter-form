@@ -11,7 +11,7 @@ export class FormControlComponent {
 	@Output() changes = new EventEmitter();
 	@Output() delete = new EventEmitter();
 
-	width = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+	width = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	options = new FormArray([
 		new FormGroup({
 			key: new FormControl(),
@@ -21,10 +21,12 @@ export class FormControlComponent {
 	tableOptions = new FormGroup({
 		dataEndpoint: new FormControl("http://localhost:3000/api/fake/packgeCompareSimpleList")
 	});
-	constructor() {}
+	constructor() {
+		debugger;
+	}
 
 	changed() {
-		if ([ this.schema.name, this.schema.title, this.schema.inputType ].some(item => !item)) return true;
+		if ([this.schema.name, this.schema.title, this.schema.inputType].some(item => !item)) return true;
 		if (this.schema.inputType == "table") {
 			this.schema.options = this.tableOptions.value;
 		} else if (this.schema.inputType == "select") {

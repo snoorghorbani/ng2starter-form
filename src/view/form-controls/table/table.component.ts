@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { FormControlSchema } from "../../../models";
+import { FormControlSchema, FieldConfig, Field } from "../../../models";
 import { HttpClient } from "@angular/common/http";
 import { MatTableDataSource } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
@@ -9,9 +9,11 @@ import { SelectionModel } from "@angular/cdk/collections";
 @Component({
 	selector: "ngs-form-control-table",
 	templateUrl: "./table.component.html",
-	styleUrls: [ "./table.component.scss" ]
+	styleUrls: ["./table.component.scss"]
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, Field {
+	config: FieldConfig;
+	group: FormGroup;
 	@Input() form: FormGroup;
 	@Input() schema: FormControlSchema;
 	ready: boolean;

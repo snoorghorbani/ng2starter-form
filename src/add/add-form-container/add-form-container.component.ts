@@ -19,8 +19,9 @@ import { FormService } from "../../services";
 })
 export class AddFormContainerComponent implements OnInit {
 	schema: FormSchemaModel;
-	constructor(public store: Store<MainContainerState>, public service: FormService) {}
+	constructor(public store: Store<MainContainerState>, public service: FormService) { }
 	ngOnInit() {
+		debugger;
 		this.schema = new FormSchemaModel();
 		this.schema.init();
 		this.store.dispatch(new AddFormSchemaAction(this.schema));
