@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, FormArray } from "@angular/forms";
-import { FormControlSchema } from "../../models";
+import { FieldConfig } from "../../models";
 
 @Component({
 	selector: "app-form-control",
 	templateUrl: "./form-control.component.html"
 })
 export class FormControlComponent {
-	@Input() schema: FormControlSchema;
+	@Input() schema: FieldConfig;
 	@Output() changes = new EventEmitter();
 	@Output() delete = new EventEmitter();
 
-	width = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	width = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 	options = new FormArray([
 		new FormGroup({
 			key: new FormControl(),
@@ -26,7 +26,7 @@ export class FormControlComponent {
 	}
 
 	changed() {
-		if ([this.schema.name, this.schema.title, this.schema.inputType].some(item => !item)) return true;
+		if ([ this.schema.name, this.schema.title, this.schema.inputType ].some(item => !item)) return true;
 		if (this.schema.inputType == "table") {
 			this.schema.options = this.tableOptions.value;
 		} else if (this.schema.inputType == "select") {

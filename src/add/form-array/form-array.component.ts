@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FormControlSchema } from "../../models";
+import { FieldConfig } from "../../models";
 
 @Component({
 	selector: "app-form-array",
 	templateUrl: "./form-array.component.html"
 })
 export class FormArrayComponent {
-	@Input() schema: FormControlSchema;
+	@Input() schema: FieldConfig;
 	@Output() changes = new EventEmitter();
 	constructor() {}
 
@@ -14,20 +14,20 @@ export class FormArrayComponent {
 		this.changes.emit();
 	}
 
-	addFormGroup(root: FormControlSchema) {
-		const group = new FormControlSchema("group");
+	addFormGroup(root: FieldConfig) {
+		const group = new FieldConfig("group");
 		group.fields = [];
 		root.fields.push(group);
 		return group;
 	}
-	addFormArray(root: FormControlSchema) {
-		const array = new FormControlSchema("array");
+	addFormArray(root: FieldConfig) {
+		const array = new FieldConfig("array");
 		array.fields = [];
 		root.fields.push(array);
 		return array;
 	}
-	addFormControl(root: FormControlSchema) {
-		const control = new FormControlSchema("control");
+	addFormControl(root: FieldConfig) {
+		const control = new FieldConfig("control");
 		root.fields.push(control);
 		return control;
 	}

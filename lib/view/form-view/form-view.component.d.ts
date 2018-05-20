@@ -3,11 +3,9 @@ import { FormGroup, AbstractControl } from "@angular/forms";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ComponentRef } from "@angular/core/src/linker/component_factory";
 import { Store } from "@ngrx/store";
-import { FormControlSchema } from "../../models/form-field-schema.model";
-import { FormSchemaModel } from "../../models/form-schema.model";
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
-import { Field, FieldConfig } from "../../models";
+import { Field, FieldConfig, FormSchemaModel } from "../../models";
 export declare class FormViewComponent {
     private service;
     private compiler;
@@ -24,7 +22,7 @@ export declare class FormViewComponent {
     formGroupCreated: boolean;
     constructor(service: FormService, compiler: Compiler, resolver: ComponentFactoryResolver, store: Store<MainContainerState>);
     generate(schema: FormSchemaModel): void;
-    createFrom(data: FormControlSchema, parentPath?: string): AbstractControl;
+    createFrom(data: FieldConfig, parentPath?: string): AbstractControl;
     accepted(): void;
     canceled(): void;
 }

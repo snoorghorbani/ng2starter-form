@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FormControlSchema, FieldConfig, Field } from "../../../models";
+import { FieldConfig, Field } from "../../../models";
 import { FormGroup } from "@angular/forms";
 
 @Component({
@@ -12,8 +12,8 @@ export class EmailComponent implements Field {
 	group: FormGroup;
 
 	@Input() form: FormGroup;
-	@Input() schema: FormControlSchema;
-	constructor() { }
+	@Input() schema: FieldConfig;
+	constructor() {}
 
-	ngOnInit() { }
+	ngOnInit() {}
 }

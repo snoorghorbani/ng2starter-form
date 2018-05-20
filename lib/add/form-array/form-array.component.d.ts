@@ -1,11 +1,11 @@
 import { EventEmitter } from "@angular/core";
-import { FormControlSchema } from "../../models";
+import { FieldConfig } from "../../models";
 export declare class FormArrayComponent {
-    schema: FormControlSchema;
+    schema: FieldConfig;
     changes: EventEmitter<{}>;
     constructor();
     changed(): void;
-    addFormGroup(root: FormControlSchema): FormControlSchema;
-    addFormArray(root: FormControlSchema): FormControlSchema;
-    addFormControl(root: FormControlSchema): FormControlSchema;
+    addFormGroup(root: FieldConfig): FieldConfig;
+    addFormArray(root: FieldConfig): FieldConfig;
+    addFormControl(root: FieldConfig): FieldConfig;
 }

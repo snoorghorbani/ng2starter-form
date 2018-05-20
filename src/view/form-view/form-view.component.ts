@@ -43,8 +43,6 @@ import { ComponentRef } from "@angular/core/src/linker/component_factory";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Store } from "@ngrx/store";
 
-import { FormControlSchema } from "../../models/form-field-schema.model";
-import { FormSchemaModel } from "../../models/form-schema.model";
 import {
 	SelectComponent,
 	EmailComponent,
@@ -56,7 +54,7 @@ import {
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
-import { Field, FieldConfig } from "../../models";
+import { Field, FieldConfig, FormSchemaModel } from "../../models";
 
 @Component({
 	selector: "ngs-form-view",
@@ -92,7 +90,6 @@ export class FormViewComponent {
 		this.schema$.subscribe(schema => {
 			if (!schema) return;
 			this.formGroup = this.createFrom(schema.form) as FormGroup;
-			debugger;
 			if (!schema.form.name) return;
 			this.formGroupCreated = true;
 		});
@@ -101,13 +98,13 @@ export class FormViewComponent {
 		this.schema$.next(schema);
 	}
 
-	createFrom(data: FormControlSchema, parentPath = ""): AbstractControl {
+	createFrom(data: FieldConfig, parentPath = ""): AbstractControl {
 		if (data.type == "control") {
 			if (data.parentType == "array") {
-				// parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+				// parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 			} else if (data.parentType == "group") {
 				var formGroupPath = parentPath;
-				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 			}
 			var validators = [];
 			if (data.validator.required.active) {
@@ -127,11 +124,11 @@ export class FormViewComponent {
 		} else if (data.type == "group") {
 			var formGroup = new FormGroup({});
 			if (data.parentType == undefined) {
-				parentPath = (data as FormControlSchema).name;
+				parentPath = (data as FieldConfig).name;
 			} else if (data.parentType == "array") {
-				parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+				parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 			} else if (data.parentType == "group") {
-				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 			}
 
 			(formGroup as any).schema = data;
@@ -144,9 +141,7 @@ export class FormViewComponent {
 		} else {
 			var formArray: FormArray = new FormArray([]);
 			parentPath =
-				parentPath == ""
-					? (data as FormControlSchema).name
-					: `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath == "" ? (data as FieldConfig).name : `${parentPath}.controls.${(data as FieldConfig).name}`;
 			(formArray as any).schema = data;
 			(formArray as any).schema.path = parentPath;
 			data.fields.forEach((item, idx) => {

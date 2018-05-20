@@ -43,8 +43,6 @@ import { ComponentRef } from "@angular/core/src/linker/component_factory";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Store } from "@ngrx/store";
 
-import { FormControlSchema } from "../../models/form-field-schema.model";
-import { FormSchemaModel } from "../../models/form-schema.model";
 import {
 	SelectComponent,
 	EmailComponent,
@@ -56,11 +54,11 @@ import {
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
-import { Field, FieldConfig } from "../../models";
+import { Field, FieldConfig, FormSchemaModel } from "../../models";
 
 @Component({
 	selector: "ngs-form-view",
-	template: `<form *ngIf="formGroupCreated" class="dynamic-form" [formGroup]="formGroup" (ngSubmit)="accepted()">   <mat-card>     <mat-card-content>       <ng-container *ngFor="let field of (schema$ | async)?.form.fields;" dynamicField [config]="field" [group]="formGroup">       </ng-container>      </mat-card-content>     <mat-card-actions>       <button fxFlex type="submit" *ngIf="(schema$ | async)?.events.accept.show" mat-raised-button color="primary">{{(schema$ | async)?.events.accept.text}}</button>       <button fxFlex type="button" *ngIf="(schema$ | async)?.events.cancel.show" (click)="cancel.emit()" mat-raised-button color="primary">{{(schema$ | async)?.events.cancel.text}</button>     </mat-card-actions>   </mat-card> </form>`
+	template: `<form *ngIf="formGroupCreated" class="dynamic-form" [formGroup]="formGroup" (ngSubmit)="accepted()">   <mat-card>     <mat-card-content fxLayout="row wrap" fxLayoutGap="25px">       <div  *ngFor="let field of (schema$ | async)?.form.fields;" [fxFlex]="field.width * 10">         <ng-container dynamicField  [config]="field" [group]="formGroup"></ng-container>       </div>     </mat-card-content>     <mat-card-actions>       <button fxFlex type="submit" *ngIf="(schema$ | async)?.events.accept.show" mat-raised-button color="primary">{{(schema$ | async)?.events.accept.text}}</button>       <button fxFlex type="button" *ngIf="(schema$ | async)?.events.cancel.show" (click)="cancel.emit()" mat-raised-button color="primary">{{(schema$ | async)?.events.cancel.text}</button>     </mat-card-actions>   </mat-card> </form>`
 })
 export class FormViewComponent {
 	@Output() accept = new EventEmitter<FormGroup>();
@@ -101,13 +99,13 @@ export class FormViewComponent {
 		this.schema$.next(schema);
 	}
 
-	createFrom(data: FormControlSchema, parentPath = ""): AbstractControl {
+	createFrom(data: FieldConfig, parentPath = ""): AbstractControl {
 		if (data.type == "control") {
 			if (data.parentType == "array") {
-				// parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+				// parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 			} else if (data.parentType == "group") {
 				var formGroupPath = parentPath;
-				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 			}
 			var validators = [];
 			if (data.validator.required.active) {
@@ -127,11 +125,11 @@ export class FormViewComponent {
 		} else if (data.type == "group") {
 			var formGroup = new FormGroup({});
 			if (data.parentType == undefined) {
-				parentPath = (data as FormControlSchema).name;
+				parentPath = (data as FieldConfig).name;
 			} else if (data.parentType == "array") {
-				parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+				parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 			} else if (data.parentType == "group") {
-				parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 			}
 
 			(formGroup as any).schema = data;
@@ -144,9 +142,7 @@ export class FormViewComponent {
 		} else {
 			var formArray: FormArray = new FormArray([]);
 			parentPath =
-				parentPath == ""
-					? (data as FormControlSchema).name
-					: `${parentPath}.controls.${(data as FormControlSchema).name}`;
+				parentPath == "" ? (data as FieldConfig).name : `${parentPath}.controls.${(data as FieldConfig).name}`;
 			(formArray as any).schema = data;
 			(formArray as any).schema.path = parentPath;
 			data.fields.forEach((item, idx) => {

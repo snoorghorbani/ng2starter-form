@@ -1,7 +1,6 @@
 import { EventEmitter } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { FormControlSchema } from "../../models/form-field-schema.model";
-import { FormSchemaModel } from "../../models/form-schema.model";
+import { FormSchemaModel, FieldConfig } from "../../models";
 export declare class AddFormComponent {
     schema: FormSchemaModel;
     formGroup: FormGroup;
@@ -10,7 +9,7 @@ export declare class AddFormComponent {
     emit(): void;
     changed(): void;
     changeOrder($event: any): void;
-    addFormGroup(root: FormControlSchema): FormControlSchema;
-    addFormArray(root: FormControlSchema): FormControlSchema;
-    addFormControl(root: FormControlSchema): FormControlSchema;
+    addFormGroup(root: FieldConfig): FieldConfig;
+    addFormArray(root: FieldConfig): FieldConfig;
+    addFormControl(root: FieldConfig): FieldConfig;
 }

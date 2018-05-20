@@ -1,17 +1,14 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FormControlSchema, FieldConfig, Field } from "../../../models";
+import { FieldConfig, Field } from "../../../models";
 import { FormGroup } from "@angular/forms";
 
 @Component({
 	selector: "ngs-form-control-select",
 	templateUrl: "./select.component.html",
-	styleUrls: ["./select.component.scss"]
+	styleUrls: [ "./select.component.scss" ]
 })
 export class SelectComponent implements Field {
 	config: FieldConfig;
 	group: FormGroup;
-
-	@Input() form: FormGroup;
-	@Input() schema: FormControlSchema;
-	constructor() { }
+	constructor() {}
 }

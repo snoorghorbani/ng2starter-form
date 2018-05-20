@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { FormControlSchema, FieldConfig, Field } from "../../../models";
+import { FieldConfig, Field } from "../../../models";
 import { HttpClient } from "@angular/common/http";
 import { MatTableDataSource } from "@angular/material";
 import { SelectionModel } from "@angular/cdk/collections";
@@ -15,7 +15,7 @@ export class TableComponent implements OnInit, Field {
 	config: FieldConfig;
 	group: FormGroup;
 	@Input() form: FormGroup;
-	@Input() schema: FormControlSchema;
+	@Input() schema: FieldConfig;
 	ready: boolean;
 	displayedColumns: string[];
 	filedDisplayedColumns: string[];

@@ -21,13 +21,13 @@ export class FormUtilityService {
 		private configurationService: FormConfigurationService
 	) {}
 
-	// createFrom(data: FormControlSchema, parentPath = ""): AbstractControl {
+	// createFrom(data: FieldConfig, parentPath = ""): AbstractControl {
 	// if (data.type == "control") {
 	// 	if (data.parentType == "array") {
-	// 		// parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+	// 		// parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 	// 	} else if (data.parentType == "group") {
 	// 		var formGroupPath = parentPath;
-	// 		parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+	// 		parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 	// 	}
 	// 	var validators = [];
 	// 	if (data.validator.required.active) {
@@ -47,11 +47,11 @@ export class FormUtilityService {
 	// } else if (data.type == "group") {
 	// 	var formGroup = new FormGroup({});
 	// 	if (data.parentType == undefined) {
-	// 		parentPath = (data as FormControlSchema).name;
+	// 		parentPath = (data as FieldConfig).name;
 	// 	} else if (data.parentType == "array") {
-	// 		parentPath = `${parentPath}.controls[${(data as FormControlSchema).name}]`;
+	// 		parentPath = `${parentPath}.controls[${(data as FieldConfig).name}]`;
 	// 	} else if (data.parentType == "group") {
-	// 		parentPath = `${parentPath}.controls.${(data as FormControlSchema).name}`;
+	// 		parentPath = `${parentPath}.controls.${(data as FieldConfig).name}`;
 	// 	}
 
 	// 	(formGroup as any).schema = data;
@@ -65,8 +65,8 @@ export class FormUtilityService {
 	// 	var formArray: FormArray = new FormArray([]);
 	// 	parentPath =
 	// 		parentPath == ""
-	// 			? (data as FormControlSchema).name
-	// 			: `${parentPath}.controls.${(data as FormControlSchema).name}`;
+	// 			? (data as FieldConfig).name
+	// 			: `${parentPath}.controls.${(data as FieldConfig).name}`;
 	// 	(formArray as any).schema = data;
 	// 	(formArray as any).schema.path = parentPath;
 	// 	data.fields.forEach((item, idx) => {

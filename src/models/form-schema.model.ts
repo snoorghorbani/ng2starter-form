@@ -1,10 +1,10 @@
-import { FormControlSchema } from "./form-field-schema.model";
+import { FieldConfig } from "./field-config.model";
 
 export class FormSchemaModel {
 	_id: string;
 	name: string;
 	description: string;
-	form: FormControlSchema;
+	form: FieldConfig;
 	events = {
 		accept: {
 			show: false,
@@ -17,7 +17,7 @@ export class FormSchemaModel {
 	};
 
 	constructor() {
-		this.form = new FormControlSchema("group");
+		this.form = new FieldConfig("group");
 	}
 	init() {
 		this._id = (Math.random() * 10).toString();

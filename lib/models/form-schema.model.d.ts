@@ -1,9 +1,9 @@
-import { FormControlSchema } from "./form-field-schema.model";
+import { FieldConfig } from "./field-config.model";
 export declare class FormSchemaModel {
     _id: string;
     name: string;
     description: string;
-    form: FormControlSchema;
+    form: FieldConfig;
     events: {
         accept: {
             show: boolean;

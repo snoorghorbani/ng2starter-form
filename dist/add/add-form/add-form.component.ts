@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { FormControlSchema } from "../../models/form-field-schema.model";
-import { FormSchemaModel } from "../../models/form-schema.model";
-import { AddFormApiModel } from "../../models";
+
+import { FormSchemaModel, AddFormApiModel, FieldConfig } from "../../models";
 
 @Component({
 	selector: "ngs-form-add",
@@ -26,20 +25,20 @@ export class AddFormComponent {
 		debugger;
 	}
 
-	addFormGroup(root: FormControlSchema) {
-		const group = new FormControlSchema("group");
+	addFormGroup(root: FieldConfig) {
+		const group = new FieldConfig("group");
 		group.fields = [];
 		root.fields.push(group);
 		return group;
 	}
-	addFormArray(root: FormControlSchema) {
-		const array = new FormControlSchema("array");
+	addFormArray(root: FieldConfig) {
+		const array = new FieldConfig("array");
 		array.fields = [];
 		root.fields.push(array);
 		return array;
 	}
-	addFormControl(root: FormControlSchema) {
-		const control = new FormControlSchema("control");
+	addFormControl(root: FieldConfig) {
+		const control = new FieldConfig("control");
 		root.fields.push(control);
 		return control;
 	}

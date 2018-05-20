@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
-import { FormControlSchema } from "../../../models";
+import { FieldConfig } from "../../../models";
 
 @Component({
 	selector: "ngs-form-control-number",
@@ -10,7 +10,7 @@ import { FormControlSchema } from "../../../models";
 })
 export class NumberComponent implements OnInit {
 	@Input() form: FormGroup;
-	@Input() schema: FormControlSchema;
+	@Input() schema: FieldConfig;
 	constructor() {}
 
 	ngOnInit() {}
