@@ -29,20 +29,20 @@
 		"@soushians/starter": "2.x.x"
 	},
 	"devDependencies": {
-		"@soushians/infra": "^2.x.x",
-		"@soushians/shared": "^2.x.x",
-		"@soushians/config": "^2.x.x",
 		"@ngrx/effects": "^4.x.x",
 		"@ngrx/router-store": "^4.x.x",
 		"@ngrx/store": "^4.x.x",
 		"@ngrx/store-devtools": "^4.x.x",
-		"rxjs": "^5.x.x",
+		"@soushians/config": "^2.x.x",
+		"@soushians/infra": "^2.x.x",
+		"@soushians/shared": "^2.x.x",
 		"@types/node": "^9.4.x",
-		"gulp": "^4.x.x",
+		"gulp": "^4.0.0",
 		"gulp-copy": "^1.x.x",
-		"gulp-inline-ng2-template": "^4.1.x",
+		"gulp-inline-ng2-template": "^4.1.0",
 		"rimraf": "^2.6.2",
 		"rollup": "^0.55.x",
+		"rxjs": "^5.x.x",
 		"typescript": "^2.5.x"
 	},
 	"repository": {

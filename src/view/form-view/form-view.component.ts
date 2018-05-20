@@ -45,7 +45,14 @@ import { Store } from "@ngrx/store";
 
 import { FormControlSchema } from "../../models/form-field-schema.model";
 import { FormSchemaModel } from "../../models/form-schema.model";
-import { SelectComponent, EmailComponent, ColorComponent, CheckboxComponent, TextComponent, TableComponent } from "../form-controls";
+import {
+	SelectComponent,
+	EmailComponent,
+	ColorComponent,
+	CheckboxComponent,
+	TextComponent,
+	TableComponent
+} from "../form-controls";
 import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
@@ -67,7 +74,11 @@ export class FormViewComponent {
 		}
 		this.service.selectFormById(id).subscribe(schema => this.schema$.next(schema));
 	}
-	@Input() schema$: BehaviorSubject<FormSchemaModel>;
+	schema$: BehaviorSubject<FormSchemaModel>;
+	@Input()
+	set schema(schema) {
+		this.schema$.next(schema);
+	}
 	formGroup: FormGroup;
 	formGroupCreated = false;
 
@@ -155,25 +166,6 @@ export class FormViewComponent {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const components: { [type: string]: Type<Field> } = {
 	checkbox: CheckboxComponent,
 	text: TextComponent,
@@ -184,23 +176,16 @@ const components: { [type: string]: Type<Field> } = {
 };
 
 @Directive({
-	selector: '[dynamicField]'
+	selector: "[dynamicField]"
 })
 export class DynamicFieldDirective implements Field, OnChanges, OnInit {
-	@Input()
-	config: FieldConfig;
+	@Input() config: FieldConfig;
 
-	@Input()
-	group: FormGroup;
+	@Input() group: FormGroup;
 
 	component: ComponentRef<Field>;
 
-	constructor(
-		private resolver: ComponentFactoryResolver,
-		private container: ViewContainerRef
-	) {
-		debugger;
-	}
+	constructor(private resolver: ComponentFactoryResolver, private container: ViewContainerRef) {}
 
 	ngOnChanges() {
 		if (this.component) {
@@ -211,7 +196,7 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
 
 	ngOnInit() {
 		if (!components[this.config.subtype]) {
-			const supportedTypes = Object.keys(components).join(', ');
+			const supportedTypes = Object.keys(components).join(", ");
 			throw new Error(
 				`Trying to use an unsupported type (${this.config.subtype}).
 		  Supported types: ${supportedTypes}`

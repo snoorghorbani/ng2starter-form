@@ -6,11 +6,11 @@ export declare class FormSchemaModel {
     form: FormControlSchema;
     events: {
         accept: {
-            show: false;
+            show: boolean;
             text: string;
         };
         cancel: {
-            show: false;
+            show: boolean;
             text: string;
         };
     };

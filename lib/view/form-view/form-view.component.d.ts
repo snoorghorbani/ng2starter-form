@@ -19,6 +19,7 @@ export declare class FormViewComponent {
     _id: string;
     id: string;
     schema$: BehaviorSubject<FormSchemaModel>;
+    schema: any;
     formGroup: FormGroup;
     formGroupCreated: boolean;
     constructor(service: FormService, compiler: Compiler, resolver: ComponentFactoryResolver, store: Store<MainContainerState>);
