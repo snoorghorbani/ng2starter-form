@@ -1,1 +1,0 @@
-{"version":3,"file":"form.config.js","sourceRoot":"","sources":["../dist/form.config.ts"],"names":[],"mappings":";;AAAA,sCAA+C;AAWlC,QAAA,qBAAqB,GAAqB;IACtD,SAAS,EAAE;QACV,OAAO,EAAE,EAAE;QACX,QAAQ,EAAE,EAAE;QACZ,OAAO,EAAE,EAAE;QACX,OAAO,EAAE,EAAE;QACX,UAAU,EAAE,EAAE;KACd;CACD;AACY,QAAA,mBAAmB,GAAG,IAAI,qBAAc,CAAmB,kBAAkB,CAAC"}

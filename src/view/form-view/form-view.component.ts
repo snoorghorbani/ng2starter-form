@@ -12,7 +12,8 @@ import {
 	EventEmitter,
 	OnChanges,
 	Directive,
-	Type
+	Type,
+	OnDestroy
 } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {
@@ -55,30 +56,34 @@ import { FormService } from "../../services";
 import { MainContainerState } from "../../main-container";
 import { GetFormSchemaAction } from "../../list";
 import { Field, FieldConfig, FormSchemaModel } from "../../models";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "ngs-form-view",
 	templateUrl: "./form-view.component.html"
 })
-export class FormViewComponent {
+export class FormViewComponent implements OnDestroy {
+	unsubscribe = new Subject<void>();
 	@Output() accept = new EventEmitter<FormGroup>();
 	@Output() cancel = new EventEmitter<FormGroup>();
 	@Input() local;
-	_id: string;
 	@Input()
 	set id(id: string) {
-		if (!this.local) {
-			this.store.dispatch(new GetFormSchemaAction(id));
-		}
-		this.service.selectFormById(id).subscribe(schema => this.schema$.next(schema));
+		if (!this.local) this.store.dispatch(new GetFormSchemaAction(id));
+		this.service
+			.selectFormById(id)
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(schema => this.schema$.next(schema));
 	}
-	schema$: BehaviorSubject<FormSchemaModel>;
 	@Input()
-	set schema(schema) {
+	set schema(schema: FormSchemaModel) {
 		this.schema$.next(schema);
 	}
+	_id: string;
 	formGroup: FormGroup;
 	formGroupCreated = false;
+	schema$: BehaviorSubject<FormSchemaModel>;
 
 	constructor(
 		private service: FormService,
@@ -87,12 +92,16 @@ export class FormViewComponent {
 		private store: Store<MainContainerState>
 	) {
 		this.schema$ = new BehaviorSubject(undefined);
-		this.schema$.subscribe(schema => {
+		this.schema$.pipe(takeUntil(this.unsubscribe)).subscribe(schema => {
 			if (!schema) return;
 			this.formGroup = this.createFrom(schema.form) as FormGroup;
 			if (!schema.form.name) return;
 			this.formGroupCreated = true;
 		});
+	}
+	ngOnDestroy() {
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
 	}
 	generate(schema: FormSchemaModel) {
 		this.schema$.next(schema);

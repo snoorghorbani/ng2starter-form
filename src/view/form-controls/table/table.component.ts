@@ -26,7 +26,7 @@ export class TableComponent implements OnInit, Field {
 		this.ready = false;
 	}
 	ngOnInit() {
-		this.http.get(this.schema.options.dataEndpoint).subscribe((data: any) => {
+		this.http.get(this.schema.dataEndpoint).subscribe((data: any) => {
 			debugger;
 			this.ready = true;
 			this.displayedColumns = data.displayedColumns;

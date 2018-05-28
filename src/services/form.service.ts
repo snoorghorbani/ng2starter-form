@@ -9,6 +9,7 @@ import { FormConfigurationService } from "./form-configuration.service";
 
 import { MainContainerState } from "../main-container/main-container.reducers";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { filter, map, withLatestFrom } from "rxjs/operators";
 
 @Injectable()
 export class FormService {
@@ -58,8 +59,7 @@ export class FormService {
 		const subject = new BehaviorSubject<FormSchemaModel>(undefined);
 		this.store
 			.select(state => state.form.list.data)
-			.filter(forms => forms != null)
-			.map(forms => forms.find(form => form._id == _id))
+			.pipe(filter(forms => forms != null), map(forms => forms.find(form => form._id == _id)))
 			.subscribe(FormSchemaModel => subject.next(FormSchemaModel));
 		return subject.asObservable();
 	}

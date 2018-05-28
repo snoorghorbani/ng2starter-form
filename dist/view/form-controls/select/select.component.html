@@ -1,6 +1,6 @@
-<div  [formGroup]="form">
+<div  [formGroup]="group">
 <mat-form-field>
-    <mat-select [formControlName]="config.name" [placeholder]="schema.title">
+    <mat-select [formControlName]="config.name" [placeholder]="config.title">
       <mat-option *ngFor="let option of config.options" [value]="option.value">{{option.key}}</mat-option>
     </mat-select>
 </mat-form-field>

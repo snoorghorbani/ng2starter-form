@@ -1,1 +1,0 @@
-[{"__symbolic":"module","version":4,"metadata":{"FormState":{"__symbolic":"interface"},"FormReducers":{"list":{"__symbolic":"reference","module":"../list/list.reducers","name":"reducer","line":9,"character":7}},"MainContainerState":{"__symbolic":"interface"}}}]

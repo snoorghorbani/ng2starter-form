@@ -1,1 +1,0 @@
-[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./form-routing.module"},{"from":"./form.config"},{"from":"./form.module"},{"from":"./services"},{"from":"./add"},{"from":"./edit"},{"from":"./list"},{"from":"./main-container"},{"from":"./view"},{"from":"./models"}]}]
